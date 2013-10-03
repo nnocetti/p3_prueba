@@ -6,8 +6,8 @@ bool caminoEuleriano(Grafo g)
  {
   int i, impares;
   
-  for(i = --nVertices(g); i>=0 && impares < 3; i--);
-    if(grado(i)%2)
+  for(i = cantidadElementosConjunto(Vertices(g)) - 1; (i >= 0) && (impares < 3); i--);
+    if(cantidadElementosConjunto(Adyacentes(g, i)) % 2)
 	  impares++;
-  return (impares == 0) || (impares == 2);
+  return !(impares % 2);
  }
