@@ -47,6 +47,37 @@ void AgregarVertice(Grafo &g, Vertice v)
   g=ng;
  }
 
+void insertarAdy(nodoV* &l, Vertice v)
+ {
+  nodoV *ady;
+  
+  ady = new nodoV;
+  ady->v = v;
+  ady->sig = l;
+  l = ady;
+ } 
+ 
+void borrarAdy(nodoV* &l, Vertice v)
+//Precondicion: existe el vertice v en l
+ {
+  nodoV *aux, *elm;
+
+  aux = l;
+  if (l->v == v)
+   {
+	l = l->sig;
+	delete(aux);
+   }
+  else
+   {  
+    while (aux->sig->v!=v)
+      aux = aux->sig;
+	elm = aux->sig;
+	aux->sig = elm->sig;
+	delete(elm);
+   }
+ }
+ 
 void destruirListaAdy(nodoV* &l)
  {
   nodoV *elm;
@@ -65,46 +96,24 @@ void QuitarVertice(Grafo &g, Vertice v)
  {
   int i;
   repGrafo *ng;
-  
+  ConjuntoInt a;
+
+  //Primero eliminamos todas las aristas que incluyan al vertice que vamos a borrar
+  a = Adyacentes(v);
+  iniciarRecorridaConjunto(a);
+  while (siguienteConjunto(i, a)
+    borrarAdy(g->l[i], v);
+  destruirConjunto(a);
+  destruirListaAdy(g->l[v]);
+  //Luego creamos un nuevo vector y movemos las listas
   ng = new repGrafo;
-  ng->nv = --v;
+  ng->nv = v;
   ng->l = new nodoV* [v];
   for (i = 0; i < v; i++)
     ng->l[i] = g->l[i];
-  destruirListaAdy(g->l[v]);
   delete(g->l);
   delete(g);
   g=ng;	
- }
-
-void insertarAdy(nodoV* &l, Vertice v)
- {
-  nodoV *ady;
-  
-  ady = new nodoV;
-  ady->v = v;
-  ady->sig = l;
-  l = ady;
- } 
- 
-void borrarAdy(nodoV* &l, Vertice v)
- {
-  nodoV *aux, *elm;
-
-  aux = l;
-  if (l->v == v)
-   {
-	l = l->sig;
-	delete(aux);
-   }
-  else
-   {  
-    while (aux->sig->v!=v)
-      aux = aux->sig;
-	elm = aux->sig;
-	aux->sig = elm->sig;
-	delete(elm);
-   }
  }
  
 void AgregarArista(Grafo &g, Arista a)
