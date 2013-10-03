@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "ej4.h"
 #include "conjunto.h"
 
@@ -39,19 +40,19 @@ void AgregarVertice(Grafo &g, Vertice v)
   int i;
   repGrafo *ng;
   
-  new ng;
+  ng = new repGrafo;
   ng->nv = v + 1;
-  new ng->m[ng->nv];
+  ng->m = new char* [ng->nv];
   for (i = 0; i < ng->nv; i++)
-    new ng->m[i][ng->nv];
+    ng->m[i] = new char[ng->nv];
   if (v)
    {
     copiarNGrafo(v, g, ng);
 	destruirGrafo(g);
    }
   for (i = 0; i < ng->nv; i++)
-    ng->m[v][i] = 0;   
-  g=ng;	
+    ng->m[v][i] = 0;
+  g=ng;
  }
  
 void QuitarVertice(Grafo &g, Vertice v)
@@ -61,11 +62,11 @@ void QuitarVertice(Grafo &g, Vertice v)
   int i;
   repGrafo *ng;
   
-  new ng;
+  ng = new repGrafo;
   ng->nv = --v;
-  new ng->m[v];
+  ng->m = new char* [v];
   for (i = 0; i < v; i++)
-    new ng->m[i][v];
+    ng->m[i] = new char[v];
   copiarNGrafo(v, g, ng);
   destruirGrafo(g);
   g=ng;	
@@ -111,10 +112,10 @@ void destruirGrafo(Grafo &g)
 // libera toda la memoria ocupada por g
  {
   int i;
-   
+  
   for (i = 0; i < g->nv; i++)
-    delete g->m[i];
-  delete g->m;
-  delete g;
+    delete(g->m[i]);
+  delete(g->m);
+  delete(g);
   g = NULL;
  }
