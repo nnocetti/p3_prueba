@@ -5,9 +5,17 @@
 bool caminoEuleriano(Grafo g)
  {
   int i, impares;
-  
-  for(i = cantidadElementosConjunto(Vertices(g)) - 1; (i >= 0) && (impares < 3); i--);
-    if(cantidadElementosConjunto(Adyacentes(g, i)) % 2)
-	  impares++;
+  ConjuntoInt aux;
+
+  aux = Vertices(g);
+  i = cantidadElementosConjunto(aux);
+  destruirConjunto(aux);
+  for(i--; (i >= 0) && (impares < 3); i--)
+   {
+    aux = Adyacentes(g, i);
+      if(cantidadElementosConjunto(aux) % 2)
+        impares++;
+    destruirConjunto(aux);
+   }
   return !(impares % 2);
  }
