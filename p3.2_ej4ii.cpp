@@ -47,7 +47,7 @@ void AgregarVertice(Grafo &g, Vertice v)
   g=ng;
  }
 
-void destruirListaAdy(nodoV* &l);
+void destruirListaAdy(nodoV* &l)
  {
   nodoV *elm;
   
@@ -77,7 +77,7 @@ void QuitarVertice(Grafo &g, Vertice v)
   g=ng;	
  }
 
-void insertarAdy(nodoV* &l, Vertice v); 
+void insertarAdy(nodoV* &l, Vertice v)
  {
   nodoV *ady;
   
@@ -87,7 +87,7 @@ void insertarAdy(nodoV* &l, Vertice v);
   l = ady;
  } 
  
-void borrarAdy(nodoV* &l, Vertice v);
+void borrarAdy(nodoV* &l, Vertice v)
  {
   nodoV *aux, *elm;
 
