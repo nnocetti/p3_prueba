@@ -11,7 +11,7 @@ struct repGrafo
 struct repArista
  {
   int v, w;
- }
+ };
 
 typedef int Vertice;
 
